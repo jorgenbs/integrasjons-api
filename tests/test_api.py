@@ -34,7 +34,7 @@ class TestStringMethods(unittest.TestCase):
     def test_ok_response(self, send_email, opprett_avtale, opprett_kunde):
         # mock
         request = self.factory.post(path='/avtale')
-        opprett_kunde.return_value = '2222'
+        opprett_kunde.return_value = ('2222', 'mail@mail.com')
         opprett_avtale.return_value = '3333'
         send_email.return_value = 'avtale sendt'
 
@@ -48,6 +48,9 @@ class TestStringMethods(unittest.TestCase):
         # assert json body
         self.assertAlmostEquals(response_json.get('avtalenummer'), '3333')
         self.assertAlmostEquals(response_json.get('status'), 'avtale sendt')
+
+        # assert mail was sendt
+        send_email.assert_called_with('mail@mail.com', '3333')
 
     def test_503_if_service_unavailable(self):
         # mock, but let fagsystem attempt request to nowhere
