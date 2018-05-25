@@ -8,11 +8,13 @@ from . import services
 @csrf_exempt
 @require_POST
 def avtale(request):
+
     avtalenummer, status = services.create_avtale({
+        # not gonna bother with POST form in this case
         'foo': 'bar'
     })
 
     return http.JsonResponse(status=200, data={
-        avtalenummer: avtalenummer,
-        status: status
+        'avtalenummer': avtalenummer,
+        'status': status
     })
