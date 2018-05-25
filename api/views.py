@@ -6,9 +6,9 @@ from . import services
 
 
 @csrf_exempt
-#@require_POST
+@require_POST
 def avtale(request):
-    avtalenummer, status = services.create_customer({
+    avtalenummer, status = services.create_avtale({
         'foo': 'bar'
     })
 
