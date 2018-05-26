@@ -6,6 +6,8 @@ from api import exceptions
 
 
 class ApiClient:
+    """ Generic class for REST clients """
+
     def __init__(self, endpoint):
         self.ENDPOINT = endpoint
 
